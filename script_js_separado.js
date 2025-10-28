@@ -973,3 +973,245 @@ document.addEventListener('click', function(e) {
         e.preventDefault();
     }
 });
+
+// ====================================
+// CONFIGURACIÓN DE EMAILJS
+// ====================================
+
+// ⚠️ REEMPLAZA con tus credenciales reales de EmailJS
+const EMAIL_CONFIG = {
+    userID: 'LFx3X0bmRBdTLIPSN',      // Tu Public Key de EmailJS
+    serviceID: 'cristhian343',       // Tu Service ID
+    templateID: 'Contact001'         // Tu Template ID
+};
+
+// ====================================
+// INICIALIZACIÓN
+// ====================================
+function initializeApp() {
+    console.log('🚀 Iniciando aplicación...');
+    
+    // Verificar que EmailJS esté cargado
+    if (typeof emailjs === 'undefined') {
+        console.warn('⏳ EmailJS aún no está cargado, reintentando...');
+        setTimeout(initializeApp, 100);
+        return;
+    }
+    
+    // Inicializar EmailJS
+    try {
+        emailjs.init(EMAIL_CONFIG.userID);
+        console.log('✅ EmailJS inicializado correctamente');
+    } catch (error) {
+        console.error('❌ Error al inicializar EmailJS:', error);
+        return;
+    }
+    
+    // Configurar aplicación
+    setupContactForm();
+    setupRealtimeValidation();
+    setupModal();
+    
+    console.log('✅ Aplicación lista');
+}
+
+// Iniciar cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}
+
+// ====================================
+// FORMULARIO DE CONTACTO
+// ====================================
+function setupContactForm() {
+    const form = document.getElementById('contactForm');
+    
+    if (!form) {
+        console.warn('⚠️ Formulario no encontrado');
+        return;
+    }
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        const loading = document.getElementById('loading');
+        
+        // Obtener valores
+        const nombreInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const mensajeInput = document.getElementById('mensaje');
+        
+        const nombre = nombreInput ? nombreInput.value.trim() : '';
+        const email = emailInput ? emailInput.value.trim() : '';
+        const mensaje = mensajeInput ? mensajeInput.value.trim() : '';
+        
+        console.log('📝 Enviando formulario:', { nombre, email, mensajeLength: mensaje.length });
+        
+        // Validar
+        if (!validateForm(nombre, email, mensaje)) {
+            return;
+        }
+        
+        // Deshabilitar botón
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+        }
+        if (loading) {
+            loading.style.display = 'block';
+        }
+        
+        // Enviar con EmailJS
+        emailjs.sendForm(EMAIL_CONFIG.serviceID, EMAIL_CONFIG.templateID, this)
+            .then(function(response) {
+                console.log('✅ Email enviado:', response);
+                showModal(
+                    '¡Mensaje Enviado!',
+                    `Gracias ${nombre}, hemos recibido tu mensaje. Te contactaremos pronto.`
+                );
+                form.reset();
+                clearValidationStyles();
+            })
+            .catch(function(error) {
+                console.error('❌ Error:', error);
+                let msg = 'Hubo un problema al enviar tu mensaje.';
+                if (error.text) msg += ' ' + error.text;
+                showModal('Error al Enviar', msg);
+            })
+            .finally(function() {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Enviar Mensaje';
+                }
+                if (loading) {
+                    loading.style.display = 'none';
+                }
+            });
+    });
+}
+
+// ====================================
+// VALIDACIÓN
+// ====================================
+function validateForm(nombre, email, mensaje) {
+    console.log('🔍 Validando:', { 
+        nombre: `"${nombre}" (${nombre.length} chars)`, 
+        email: `"${email}"`, 
+        mensaje: `${mensaje.length} chars` 
+    });
+    
+    if (nombre.length < 2) {
+        console.log('❌ Nombre muy corto');
+        showModal('Error de Validación', 'El nombre debe tener al menos 2 caracteres');
+        highlightField('nombre', false);
+        return false;
+    }
+    
+    if (!isValidEmail(email)) {
+        console.log('❌ Email inválido');
+        showModal('Error de Validación', 'Por favor ingresa un email válido');
+        highlightField('email', false);
+        return false;
+    }
+    
+    if (mensaje.length < 10) {
+        console.log('❌ Mensaje muy corto');
+        showModal('Error de Validación', 'El mensaje debe tener al menos 10 caracteres');
+        highlightField('mensaje', false);
+        return false;
+    }
+    
+    console.log('✅ Validación exitosa');
+    return true;
+}
+
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function highlightField(fieldId, isValid) {
+    const field = document.getElementById(fieldId);
+    if (field) {
+        field.classList.remove('error', 'success');
+        field.classList.add(isValid ? 'success' : 'error');
+    }
+}
+
+function clearValidationStyles() {
+    ['nombre', 'email', 'mensaje'].forEach(id => {
+        const field = document.getElementById(id);
+        if (field) {
+            field.classList.remove('error', 'success');
+        }
+    });
+}
+
+// ====================================
+// VALIDACIÓN EN TIEMPO REAL
+// ====================================
+function setupRealtimeValidation() {
+    const fields = {
+        'email': (val) => isValidEmail(val),
+        'nombre': (val) => val.trim().length >= 2,
+        'mensaje': (val) => val.trim().length >= 10
+    };
+    
+    Object.keys(fields).forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.addEventListener('input', function() {
+                if (this.value.length > 0) {
+                    highlightField(fieldId, fields[fieldId](this.value));
+                } else {
+                    this.classList.remove('error', 'success');
+                }
+            });
+        }
+    });
+}
+
+// ====================================
+// MODAL
+// ====================================
+function showModal(title, message) {
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalMessage = document.getElementById('modal-message');
+    
+    if (modal && modalTitle && modalMessage) {
+        modalTitle.textContent = title;
+        modalMessage.textContent = message;
+        modal.style.display = 'block';
+        
+        if (title.includes('Enviado')) {
+            setTimeout(closeModal, 5000);
+        }
+    } else {
+        alert(`${title}\n\n${message}`);
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+function setupModal() {
+    window.onclick = function(event) {
+        const modal = document.getElementById('modal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+    
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+}

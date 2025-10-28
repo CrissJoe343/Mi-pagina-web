@@ -76,24 +76,27 @@
         <p>En MS Technologies, nos dedicamos a impulsar tu éxito mediante soluciones innovadoras y personalizadas. Nuestro equipo de expertos está comprometido en ofrecer servicios de alta calidad que se adaptan a tus necesidades específicas. Ya sea que busques optimizar procesos, mejorar tu presencia digital o desarrollar proyectos a medida, estamos aquí para ayudarte a alcanzar tus metas. <br> <br> ¡Contáctanos hoy mismo y descubre cómo podemos colaborar para llevar tu negocio al siguiente nivel!</p>
     </section>
 
-    <!-- SECCIÓN CONTACTO -->
+    <!-- SECCIÓN CONTACTO ACTUALIZADA -->
     <section class="section" id="contacto">
-        <h2>Contacto</h2>
-        <form class="contact-form" id="contactForm">
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="mensaje">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Enviar Mensaje</button>
-        </form>
+    <h2>Contacto</h2>
+    <form class="contact-form" id="contactForm">
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="from_name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="reply_to" required>
+        </div>
+        <div class="form-group">
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">
+            Enviar Mensaje
+        </button>
+        <div class="loading" id="loading">Enviando mensaje...</div>
+    </form>
     </section>
 
     <!-- FOOTER MEJORADO -->
@@ -128,7 +131,7 @@
                         </li>
                         <li>
                             <i class="fas fa-envelope"></i>
-                            <a href="mailto:info@mstecnologies.ec">info@mstecnologies.ec</a>
+                            <a href="mailto:mstechnologies@gmail.com">mstechnologies@gmail.com</a>
                         </li>
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
@@ -166,18 +169,21 @@
     </footer>
 
 
-    <!-- MODAL -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h3 id="modalTitle"></h3>
-            <p id="modalText"></p>
-        </div>
+    <!-- Modal para notificaciones -->
+    <div id="modal" class="modal">
+    <div class="modal-content">
+        <h3 id="modal-title">Título</h3>
+        <p id="modal-message">Mensaje</p>
+        <button onclick="closeModal()">Cerrar</button>
+    </div>
     </div>
 
     <!-- BOTÓN FLOTANTE -->
     <div class="floating-btn" onclick="scrollToTop()">↑</div>
 
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
     <!-- Enlace al archivo JavaScript -->
     <script src="script_js_separado.js"></script>
 </body>
