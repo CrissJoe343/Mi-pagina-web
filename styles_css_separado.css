@@ -1037,6 +1037,7 @@ body {
     color: #666;
     margin-bottom: 1.5rem;
     line-height: 1.5;
+    text-align: left;
 }
 
 .modal-content button {

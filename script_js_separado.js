@@ -65,7 +65,7 @@ document.querySelectorAll('.nav-link, .cta-button').forEach(link => {
 });
 
 // ====================================
-// FUNCIONES DEL MODAL
+// FUNCIONES DEL MODAL DE SERVICIOS
 // ====================================
 function showModal(title, text) {
     document.getElementById('modalTitle').textContent = title;
@@ -568,46 +568,6 @@ function scrollToTop() {
         behavior: 'smooth'
     });
 }
-
-// ====================================
-// MANEJO DEL FORMULARIO DE CONTACTO
-// ====================================
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Evitar envío real del formulario
-    
-    // Obtener datos del formulario
-    const nombre = document.getElementById('nombre').value;
-    const email = document.getElementById('email').value;
-    const mensaje = document.getElementById('mensaje').value;
-    
-    // Validación básica adicional
-    if (nombre.length < 2) {
-        alert('El nombre debe tener al menos 2 caracteres');
-        return;
-    }
-    
-    if (!email.includes('@')) {
-        alert('Por favor ingresa un email válido');
-        return;
-    }
-    
-    if (mensaje.length < 10) {
-        alert('El mensaje debe tener al menos 10 caracteres');
-        return;
-    }
-    
-    // Simular envío del formulario
-    showModal(
-        '¡Mensaje Enviado!', 
-        `Gracias ${nombre}, hemos recibido tu mensaje. Te contactaremos pronto a ${email}.`
-    );
-    
-    // Limpiar el formulario
-    this.reset();
-    
-    // Log para desarrollo
-    console.log('📧 Formulario enviado:', { nombre, email, mensaje });
-});
 
 // ====================================
 // ANIMACIONES DE ENTRADA
@@ -1183,7 +1143,7 @@ function showModal(title, message) {
     
     if (modal && modalTitle && modalMessage) {
         modalTitle.textContent = title;
-        modalMessage.textContent = message;
+        modalMessage.innerHTML = message;
         modal.style.display = 'block';
         
         if (title.includes('Enviado')) {
