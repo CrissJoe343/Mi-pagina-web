@@ -1182,5 +1182,8 @@ window.addEventListener('load', function() {
   const loadingScreen = document.getElementById('loadingScreen');
   setTimeout(function() {
     loadingScreen.style.animation = 'fadeOut 2s ease-in-out forwards';
+    setTimeout(function() {
+      loadingScreen.remove();
+    }, 2000);
   }, 2800);
 });
