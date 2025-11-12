@@ -1175,3 +1175,12 @@ function setupModal() {
         }
     });
 }
+/*====================================
+  PANTALLA DE CARGA
+====================================*/
+window.addEventListener('load', function() {
+  const loadingScreen = document.getElementById('loadingScreen');
+  setTimeout(function() {
+    loadingScreen.style.animation = 'fadeOut 2s ease-in-out forwards';
+  }, 2800);
+});
