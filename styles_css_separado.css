@@ -43,12 +43,18 @@ body {
     backdrop-filter: blur(10px);
     border-radius: 50px;
     padding: 0.8rem 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 
+                0 0 20px #00d4ff,
+                inset 0 0 20px rgba(0, 212, 255, 0.3);
+    position: relative;
+    animation: glowPulse 2s ease-in-out infinite;
 }
 
 .navbar.scrolled .nav-menu {
     background: rgba(0, 0, 0, 0.95);
-    box-shadow: 0 8px 32px rgba(0, 255, 136, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 255, 136, 0.2),
+                0 0 25px #00d4ff,
+                inset 0 0 20px rgba(0, 212, 255, 0.3);
 }
 
 .nav-link {
@@ -65,7 +71,7 @@ body {
 }
 
 .nav-link:hover {
-    color: #6366f1;
+    color: #0580f3;
 }
 
 .nav-link::after {
@@ -76,13 +82,27 @@ body {
     transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background: #6366f1;
+    background: #0580f3;
     transition: width 0.3s ease;
 }
 
 .nav-link:hover::after {
     width: 80%;
 }
+
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 
+                    0 0 15px #00d4ff,
+                    inset 0 0 15px rgba(0, 212, 255, 0.2);
+    }
+    50% {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 
+                    0 0 30px #00d4ff,
+                    inset 0 0 25px rgba(0, 212, 255, 0.4);
+    }
+}
+
 
 /* ====================================
    SECCIÓN HÉROE
