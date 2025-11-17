@@ -167,24 +167,25 @@ body {
     }
 }
 
-/* ====================================
-   RESPONSIVE MÓVIL
-   ==================================== */
+/*    RESPONSIVE MÓVIL  */
 @media screen and (max-width: 768px) {
     .navbar {
         top: 10px;
         max-width: 95%;
+        display: block !important;
+        visibility: visible !important;
     }
     
     .nav-menu {
-        padding: 0.6rem 1rem;
+        padding: 0.6rem 0.8rem;
         gap: 0;
         flex-wrap: nowrap;
+        display: flex !important;
     }
     
     .nav-link {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
     }
 }
 
@@ -192,16 +193,18 @@ body {
     .navbar {
         top: 10px;
         max-width: 98%;
+        display: block !important;
     }
     
     .nav-menu {
-        padding: 0.5rem 0.5rem;
+        padding: 0.5rem 0.4rem;
         border-radius: 30px;
+        display: flex !important;
     }
     
     .nav-link {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.85rem;
+        padding: 0.3rem 0.5rem;
+        font-size: 0.8rem;
     }
     
     .nav-menu::before {
