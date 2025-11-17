@@ -28,41 +28,63 @@ window.addEventListener('scroll', () => {
 // ====================================
 // NAVEGACIÓN SUAVE
 // ====================================
-document.querySelectorAll('.nav-link, .cta-button').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        
-        // Verificar si es el enlace al inicio
-        if (targetId === '#' || targetId === '#inicio' || targetId === '#home' || targetId === '#top') {
-            // Scroll específico para el inicio
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+document.addEventListener('DOMContentLoaded', function() {
+    // Navegación suave
+    document.querySelectorAll('.nav-link, .cta-button').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
             
-            // Backup para asegurar que llegue al inicio
-            setTimeout(() => {
-                if (window.pageYOffset > 50) { // Si no llegó completamente arriba
-                    document.documentElement.scrollTop = 0;
-                    document.body.scrollTop = 0;
-                }
-            }, 800); // Esperar a que termine la animación smooth
+            const targetId = this.getAttribute('href');
             
-        } else {
-            // Para todas las demás secciones (tu código original)
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+            // Verificar si es el enlace al inicio
+            if (targetId === '#' || targetId === '#inicio' || targetId === '#home' || targetId === '#top') {
+                // Scroll específico para el inicio
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
+                
+                // Backup para asegurar que llegue al inicio
+                setTimeout(() => {
+                    if (window.pageYOffset > 50) {
+                        document.documentElement.scrollTop = 0;
+                        document.body.scrollTop = 0;
+                    }
+                }, 800);
+                
+            } else {
+                // Para todas las demás secciones
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80;
+                    const targetPosition = targetSection.offsetTop - navbarHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             }
+        });
+    });
+
+    // Cambio de estilo al hacer scroll
+    let lastScroll = 0;
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('navbar');
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
         }
+        
+        lastScroll = currentScroll;
     });
 });
+
 
 // ====================================
 // FUNCIONES DEL MODAL DE SERVICIOS
