@@ -21,39 +21,34 @@ body {
    ==================================== */
 .navbar {
     position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1000;
-    padding: 1rem 0;
+    padding: 0;
     transition: all 0.3s ease;
 }
 
-.navbar.scrolled {
-    background: rgba(0, 0, 0, 0.98);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-}
-
 .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 0 2rem;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: hsl(216, 100%, 50%);
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 0.8rem 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled .nav-menu {
+    background: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 8px 32px rgba(0, 255, 136, 0.2);
 }
 
 .nav-link {
@@ -62,6 +57,11 @@ body {
     font-weight: 500;
     transition: color 0.3s ease;
     position: relative;
+    padding: 0.5rem 1.2rem;
+}
+
+.navbar.scrolled .nav-link {
+    color: #ffffff;
 }
 
 .nav-link:hover {
@@ -71,8 +71,9 @@ body {
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 0;
     height: 2px;
     background: #6366f1;
@@ -80,7 +81,7 @@ body {
 }
 
 .nav-link:hover::after {
-    width: 100%;
+    width: 80%;
 }
 
 /* ====================================
