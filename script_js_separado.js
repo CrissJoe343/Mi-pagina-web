@@ -1247,4 +1247,142 @@ document.addEventListener('DOMContentLoaded', function() {
     if (offerClosed === 'true' && banner) {
         banner.style.display = 'none';
     }
+
+// ====================================
+// SISTEMA INTELIGENTE DE WHATSAPP
+// ====================================
+
+/**
+ * Detecta si es dispositivo móvil
+ */
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+/**
+ * Abre WhatsApp de forma inteligente según el dispositivo
+ */
+function openWhatsApp(phoneNumber, message) {
+    // Limpiar y preparar el mensaje
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Detectar tipo de dispositivo
+    const isMobile = isMobileDevice();
+    
+    let url;
+    
+    if (isMobile) {
+        // En móvil: usar api.whatsapp.com (más confiable)
+        url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+    } else {
+        // En PC: usar web.whatsapp.com (abre WhatsApp Web)
+        url = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+    }
+    
+    console.log(`📱 Dispositivo: ${isMobile ? 'Móvil' : 'PC'}`);
+    console.log(`🔗 Abriendo: ${url}`);
+    
+    // Abrir en nueva pestaña
+    window.open(url, '_blank');
+}
+
+/**
+ * Configurar todos los enlaces de WhatsApp
+ */
+function setupWhatsAppLinks() {
+    const whatsappLinks = document.querySelectorAll('[data-whatsapp="true"]');
+    
+    console.log(`✅ Configurando ${whatsappLinks.length} enlaces de WhatsApp`);
+    
+    whatsappLinks.forEach((link, index) => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevenir comportamiento por defecto
+            
+            // Obtener número y mensaje
+            const phoneNumber = '593999162874';
+            const message = this.getAttribute('data-message') || 'Hola Cristhian, vi tus servicios';
+            
+            console.log(`🔔 Click en enlace WhatsApp #${index + 1}`);
+            
+            // Abrir WhatsApp de forma inteligente
+            openWhatsApp(phoneNumber, message);
+        });
+    });
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    setupWhatsAppLinks();
+    
+    // Log de información del dispositivo
+    console.log('📱 Información del dispositivo:');
+    console.log('   - Móvil:', isMobileDevice());
+    console.log('   - User Agent:', navigator.userAgent);
+    console.log('   - Ancho de pantalla:', window.innerWidth);
 });
+
+// ====================================
+// FALLBACK ALTERNATIVO PARA WHATSAPP
+// ====================================
+
+/**
+ * Intenta múltiples métodos para abrir WhatsApp
+ */
+function openWhatsAppWithFallback(phoneNumber, message) {
+    const encodedMessage = encodeURIComponent(message);
+    const isMobile = isMobileDevice();
+    
+    // Array de URLs a intentar en orden
+    const urls = isMobile 
+        ? [
+            `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`,
+            `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`,
+            `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+          ]
+        : [
+            `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`,
+            `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`,
+            `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+          ];
+    
+    console.log('🔄 Intentando abrir WhatsApp...');
+    
+    // Intentar abrir la primera URL
+    const newWindow = window.open(urls[0], '_blank');
+    
+    // Si falla, intentar con las alternativas
+    if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+        console.warn('⚠️ Primera URL falló, intentando alternativa...');
+        setTimeout(() => {
+            window.location.href = urls[1];
+        }, 100);
+    } else {
+        console.log('✅ WhatsApp abierto exitosamente');
+    }
+}
+
+// Actualizar la función principal para usar el fallback
+function setupWhatsAppLinksAdvanced() {
+    const whatsappLinks = document.querySelectorAll('[data-whatsapp="true"]');
+    
+    whatsappLinks.forEach((link) => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation(); // Prevenir propagación del evento
+            
+            const phoneNumber = '593999162874';
+            const message = this.getAttribute('data-message') || 'Hola Cristhian';
+            
+            // Usar método con fallback
+            openWhatsAppWithFallback(phoneNumber, message);
+            
+            return false;
+        });
+    });
+}
+
+// Reemplazar la inicialización básica con la avanzada
+document.addEventListener('DOMContentLoaded', function() {
+    setupWhatsAppLinksAdvanced();
+});
+
