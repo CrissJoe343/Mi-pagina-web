@@ -408,7 +408,7 @@ body {
     white-space: nowrap;
     letter-spacing: 80px;
     font-family: 'Courier New', monospace;
-    color: rgba(0, 213, 255, 0.4); /* Color más transparente */
+    color: rgba(0, 213, 255, 0.01); /* Color más transparente */
     text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
 }
 
