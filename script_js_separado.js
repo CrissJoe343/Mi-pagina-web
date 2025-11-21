@@ -25,14 +25,27 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ====================================
 // NAVEGACIÓN SUAVE
 // ====================================
 document.addEventListener('DOMContentLoaded', function() {
     // Navegación suave
     document.querySelectorAll('.nav-link, .cta-button').forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
+            const href = this.getAttribute('href');
+            
+            // NO interceptar enlaces externos (WhatsApp, etc)
+            if (href.startsWith('http') || href.startsWith('https://')) {
+                console.log('🔗 Enlace externo detectado, permitiendo navegación:', href);
+                return; // Dejar que el navegador maneje el enlace
+            }
+            
+            // Solo prevenir default para enlaces internos (#)
+            if (href.startsWith('#')) {
+                e.preventDefault();
+            } else {
+                // Para cualquier otro caso, dejar pasar
+                return;
+            }
             
             const targetId = this.getAttribute('href');
             

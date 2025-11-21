@@ -408,7 +408,7 @@ body {
     white-space: nowrap;
     letter-spacing: 80px;
     font-family: 'Courier New', monospace;
-    color: rgba(0, 213, 255, 0); /* Color más transparente */
+    color: rgba(0, 213, 255, 0.01); /* Color más transparente */
     text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
 }
 
@@ -2031,63 +2031,760 @@ body {
 }   
 
 /* ====================================
-   DISEÑO RESPONSIVO
+   DISEÑO RESPONSIVO MEJORADO
    ==================================== */
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none;
+
+/* Tablets y dispositivos medianos */
+@media (max-width: 1024px) {
+    .section {
+        padding: 3rem 1.5rem;
     }
     
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 3rem;
     }
     
     .hero p {
-        font-size: 1.1rem;
-    }
-    
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .gallery {
-        grid-template-columns: 1fr;
-    }
-    
-    .contact-form {
-        padding: 2rem;
-        margin: 0 1rem;
-    }
-    
-    .section {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-    
-    .floating-btn {
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 }
 
-@media (max-width: 480px) {
+/* Móviles grandes y tablets pequeñas */
+@media (max-width: 768px) {
+    /* Hero Section */
+    .hero {
+        height: 100vh;
+        padding: 0 1rem;
+    }
+    
     .hero h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+    }
+    
+    .cta-button {
+        padding: 14px 30px;
+        font-size: 0.95rem;
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+    
+    .cta-button i {
+        font-size: 1.1rem;
+    }
+    
+    /* Secciones generales */
+    .section {
+        padding: 3rem 1rem;
     }
     
     .section h2 {
         font-size: 2rem;
+        margin-bottom: 2rem;
     }
     
+    /* Grid de servicios */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .service-card {
+        padding: 1.8rem;
+        max-width: 100%;
+    }
+    
+    .service-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+    }
+    
+    /* Sección de precios */
+    .pricing-section {
+        padding: 3rem 1rem;
+        margin: 2rem 1rem;
+        border-radius: 15px;
+    }
+    
+    .pricing-subtitle {
+        font-size: 1rem;
+        margin-top: -1.5rem;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .pricing-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .pricing-icon {
+        font-size: 2.5rem;
+    }
+    
+    .pricing-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .price span {
+        font-size: 2.2rem;
+    }
+    
+    .pricing-cta {
+        padding: 2rem 1.5rem;
+        border-radius: 15px;
+    }
+    
+    .pricing-cta p {
+        font-size: 1.2rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .pricing-cta .cta-button {
+        width: 100%;
+        max-width: 300px;
+        padding: 14px 25px;
+        font-size: 0.95rem;
+    }
+    
+    /* Galería */
+    .gallery {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+    
+    .gallery-item {
+        max-width: 100%;
+        height: 220px;
+    }
+    
+    .project-title {
+        font-size: 0.95rem;
+        padding: 0.3rem 0.8rem;
+    }
+    
+    /* Mensaje */
+    #Mensaje {
+        padding: 40px 20px;
+        margin: 2rem 1rem;
+        border-radius: 12px;
+    }
+    
+    #Mensaje h3 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    
+    #Mensaje p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    /* Formulario de contacto */
+    .contact-form {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+    
+    .form-group label {
+        font-size: 0.95rem;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+    
+    .submit-btn {
+        padding: 12px;
+        font-size: 1rem;
+    }
+    
+    /* Footer */
+    .footer {
+        padding: 3rem 0 2rem;
+    }
+    
+    .footer-container {
+        padding: 0 1.5rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-section h3 {
+        font-size: 1.3rem;
+    }
+    
+    .footer-about {
+        max-width: 100%;
+        text-align: center;
+    }
+    
+    .footer-logo {
+        justify-content: center;
+    }
+    
+    .footer-logo span {
+        font-size: 1.6rem;
+    }
+    
+    .footer-logo-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+    
+    .social-links a {
+        width: 42px;
+        height: 42px;
+    }
+    
+    .contact-info {
+        text-align: center;
+    }
+    
+    .contact-info li {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .footer-bottom-links {
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    
+    /* Banner de oferta */
+    .special-offer-banner {
+        top: 70px;
+        padding: 1.2rem 2rem;
+        width: 95%;
+        border-radius: 12px;
+    }
+    
+    .offer-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .offer-content p {
+        font-size: 0.9rem;
+    }
+    
+    .offer-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .offer-badge {
+        font-size: 0.8rem;
+        padding: 0.3rem 1rem;
+    }
+    
+    /* Botones flotantes */
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+        font-size: 1.8rem;
+    }
+    
+    .whatsapp-float:hover {
+        width: 55px;
+        padding: 0;
+    }
+    
+    .whatsapp-text {
+        display: none !important;
+    }
+    
+    .back-to-top-btn {
+        bottom: 85px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    
+    /* Modal de proyectos */
+    .project-modal {
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        flex-direction: column;
+    }
+    
+    .modal-image-section {
+        flex: 1;
+        order: 1;
+    }
+    
+    .modal-info-section {
+        flex: 0 0 auto;
+        padding: 1.5rem;
+        order: 0;
+        max-height: 35%;
+        overflow-y: auto;
+    }
+    
+    .modal-info-section::before,
+    .modal-info-section::after {
+        display: none;
+    }
+    
+    .modal-project-title {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .modal-image-description {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+    }
+    
+    .modal-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .modal-nav.prev {
+        left: 10px;
+    }
+    
+    .modal-nav.next {
+        right: 10px;
+    }
+    
+    .modal-close {
+        top: 10px;
+        right: 10px;
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+    
+    .modal-dots {
+        gap: 0.4rem;
+        margin-top: 1rem;
+    }
+    
+    .modal-dot {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .modal-image-indicator {
+        bottom: 10px;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+    /* Hero */
+    .hero h1 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+    
+    .hero p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 0.9rem;
+        max-width: 260px;
+    }
+    
+    /* Secciones */
+    .section {
+        padding: 2.5rem 0.8rem;
+    }
+    
+    .section h2 {
+        font-size: 1.7rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Servicios */
     .service-card {
         padding: 1.5rem;
     }
     
+    .service-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .service-card p {
+        font-size: 0.9rem;
+    }
+    
+    /* Precios */
+    .pricing-section {
+        padding: 2.5rem 0.8rem;
+        margin: 1.5rem 0.5rem;
+    }
+    
+    .pricing-card {
+        padding: 1.8rem 1.2rem;
+    }
+    
+    .pricing-icon {
+        font-size: 2.2rem;
+    }
+    
+    .pricing-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .price {
+        font-size: 1rem;
+    }
+    
+    .price span {
+        font-size: 2rem;
+    }
+    
+    .pricing-cta {
+        padding: 1.8rem 1.2rem;
+    }
+    
+    .pricing-cta p {
+        font-size: 1.1rem;
+    }
+    
+    .featured-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.8rem;
+        top: -8px;
+        right: -8px;
+    }
+    
+    /* Galería */
+    .gallery-item {
+        height: 200px;
+    }
+    
+    .project-title h3 {
+        font-size: 0.9rem;
+    }
+    
+    .project-title small {
+        font-size: 0.75rem;
+    }
+    
+    /* Mensaje */
+    #Mensaje {
+        padding: 30px 15px;
+        margin: 1.5rem 0.5rem;
+    }
+    
+    #Mensaje h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    #Mensaje p {
+        font-size: 0.95rem;
+    }
+    
+    /* Contacto */
     .contact-form {
+        padding: 1.5rem 1.2rem;
+        margin: 0 0.5rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .form-group textarea {
+        min-height: 100px;
+    }
+    
+    .submit-btn {
+        padding: 11px;
+        font-size: 0.95rem;
+    }
+    
+    /* Footer */
+    .footer-container {
+        padding: 0 1rem;
+    }
+    
+    .footer-content {
+        gap: 1.5rem;
+    }
+    
+    .footer-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .footer-logo span {
+        font-size: 1.4rem;
+    }
+    
+    .footer-logo-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .footer-about p {
+        font-size: 0.9rem;
+    }
+    
+    .social-links a {
+        width: 38px;
+        height: 38px;
+        font-size: 0.9rem;
+    }
+    
+    .contact-info li {
+        font-size: 0.9rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .contact-info li i {
+        font-size: 1rem;
+        margin-right: 0.8rem;
+    }
+    
+    .footer-bottom-links {
+        gap: 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .footer-bottom p {
+        font-size: 0.85rem;
+    }
+    
+    /* Banner de oferta */
+    .special-offer-banner {
+        top: 70px;
+        padding: 1rem 1.5rem;
+        width: 96%;
+        border-radius: 10px;
+    }
+    
+    .offer-content h3 {
+        font-size: 1.1rem;
+        line-height: 1.3;
+    }
+    
+    .offer-content p {
+        font-size: 0.85rem;
+        margin: 0.4rem 0 1rem 0;
+    }
+    
+    .offer-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .offer-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.8rem;
+    }
+    
+    .close-offer {
+        width: 28px;
+        height: 28px;
+        font-size: 1.3rem;
+        top: 8px;
+        right: 12px;
+    }
+    
+    /* Botones flotantes */
+    .whatsapp-float {
+        bottom: 15px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.6rem;
+    }
+    
+    .whatsapp-float i {
+        font-size: 1.6rem;
+    }
+    
+    .back-to-top-btn {
+        bottom: 75px;
+        right: 15px;
+        width: 42px;
+        height: 42px;
+        font-size: 1.2rem;
+    }
+    
+    /* Modal */
+    .modal-content {
+        width: 95%;
         padding: 1.5rem;
+        margin: 10% auto;
+    }
+    
+    .modal-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .modal-content p {
+        font-size: 0.9rem;
+    }
+    
+    .modal-content button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+    
+    /* Loading screen */
+    .loading-title {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    
+    .progress-bar {
+        width: 150px;
+    }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+    .hero h1 {
+        font-size: 1.6rem;
+    }
+    
+    .hero p {
+        font-size: 0.85rem;
+    }
+    
+    .cta-button {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+        max-width: 240px;
+    }
+    
+    .section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .pricing-section,
+    #Mensaje,
+    .contact-form {
+        margin: 1rem 0.3rem;
+    }
+    
+    .whatsapp-float {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+    }
+    
+    .back-to-top-btn {
+        width: 40px;
+        height: 40px;
+        bottom: 72px;
+    }
+}
+
+/* Landscape mode para móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 6rem 1rem 2rem;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .hero p {
+        font-size: 0.95rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+    
+    .cta-button {
+        max-width: 200px;
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+    
+    .special-offer-banner {
+        top: 60px;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .offer-content h3 {
+        font-size: 1.1rem;
+    }
+    
+    .offer-content p {
+        font-size: 0.85rem;
+        margin: 0.3rem 0 0.8rem 0;
+    }
+    
+    .offer-btn {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.85rem;
     }
 }
 
