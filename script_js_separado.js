@@ -1227,26 +1227,92 @@ window.addEventListener('load', function() {
 // ====================================
 // BANNER DE OFERTA ESPECIAL
 // ====================================
+
+/**
+ * Cerrar el banner de oferta
+ */
 function closeOffer() {
+    console.log('🔴 Cerrando banner de oferta...');
+    
     const banner = document.getElementById('specialOffer');
-    if (banner) {
-        banner.style.animation = 'slideDown 0.5s ease reverse';
-        setTimeout(() => {
-            banner.style.display = 'none';
-        }, 500);
-        // Guardar en localStorage para no mostrar de nuevo
+    
+    if (!banner) {
+        console.warn('⚠️ Banner no encontrado');
+        return;
+    }
+    
+    // Agregar animación de salida
+    banner.style.animation = 'slideDown 0.5s ease reverse';
+    
+    // Ocultar después de la animación
+    setTimeout(() => {
+        banner.style.display = 'none';
+        console.log('✅ Banner ocultado');
+    }, 500);
+    
+    // Guardar en localStorage para no mostrar de nuevo
+    try {
         localStorage.setItem('offerClosed', 'true');
+        console.log('💾 Preferencia guardada en localStorage');
+    } catch (e) {
+        console.warn('⚠️ No se pudo guardar en localStorage:', e);
     }
 }
 
-// Verificar si el banner debe mostrarse al cargar
-document.addEventListener('DOMContentLoaded', function() {
-    const offerClosed = localStorage.getItem('offerClosed');
+/**
+ * Verificar si el banner debe mostrarse al cargar
+ */
+function checkOfferBanner() {
     const banner = document.getElementById('specialOffer');
     
-    if (offerClosed === 'true' && banner) {
-        banner.style.display = 'none';
+    if (!banner) {
+        console.warn('⚠️ Banner no encontrado en el DOM');
+        return;
     }
+    
+    try {
+        const offerClosed = localStorage.getItem('offerClosed');
+        
+        if (offerClosed === 'true') {
+            banner.style.display = 'none';
+            console.log('🚫 Banner ocultado (preferencia guardada)');
+        } else {
+            console.log('✅ Banner visible');
+        }
+    } catch (e) {
+        console.warn('⚠️ Error al leer localStorage:', e);
+    }
+}
+
+// Inicializar al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    checkOfferBanner();
+    
+    // Agregar event listener adicional al botón de cerrar
+    const closeButton = document.querySelector('.close-offer');
+    if (closeButton) {
+        closeButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🖱️ Click en botón cerrar detectado');
+            closeOffer();
+        });
+        console.log('✅ Event listener del botón cerrar configurado');
+    } else {
+        console.warn('⚠️ Botón .close-offer no encontrado');
+    }
+});
+
+// Función adicional para resetear (útil para testing)
+function resetOfferBanner() {
+    localStorage.removeItem('offerClosed');
+    const banner = document.getElementById('specialOffer');
+    if (banner) {
+        banner.style.display = 'block';
+        banner.style.animation = 'slideDown 0.5s ease';
+    }
+    console.log('🔄 Banner reseteado');
+}
 
 // ====================================
 // SISTEMA INTELIGENTE DE WHATSAPP
