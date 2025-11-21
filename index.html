@@ -27,13 +27,37 @@
             </ul>
         </div>
     </nav>
-    
+
+    <!-- BANNER DE OFERTA ESPECIAL -->
+    <div class="special-offer-banner" id="specialOffer">
+        <div class="offer-content">
+            <span class="offer-badge">🔥 OFERTA DE LANZAMIENTO</span>
+            <h3>10% de descuento en tu primer servicio</h3>
+            <p>Solo esta semana - ¡No te lo pierdas!</p>
+            <a href="https://wa.me/593999162874?text=Hola%20Cristhian%2C%20quiero%20aprovechar%20el%2010%25%20de%20descuento." 
+                class="offer-btn" 
+                target="_blank">
+                ¡Contáctame Ahora!
+            </a>
+        </div>
+        <button class="close-offer" onclick="closeOffer()">&times;</button>
+    </div>
+
     <!-- SECCIÓN HÉROE -->
     <section class="hero" id="inicio">
         <div class="hero-content">
             <h1>MS Technologies</h1>
             <p>Multiservicios de ingeniería y multimedia para todo el mundo, impulsada por inteligencia artificial, para optimizar procesos y reducir costos.</p>
-            <a href="#servicios" class="cta-button">Explorar Servicios</a>
+            <div class="cta-buttons">
+                <a href="https://wa.me/593999162874?text=Hola%20Cristhian%2C%20quiero%20una%20cotización." 
+                    class="cta-button cta-primary" 
+                    target="_blank">
+                    <i class="fab fa-whatsapp"></i> Solicitar Cotización en 1 Minuto
+                </a>
+                <a href="#servicios" class="cta-button cta-secondary">
+                    Ver Servicios
+                </a>
+            </div>
         </div>
     </section>
 
@@ -61,6 +85,66 @@
                 <h3>Consultoría</h3>
                 <p>Asesoramiento estratégico para optimizar tu presencia digital.</p>
             </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN PRECIOS -->
+    <section class="section pricing-section" id="precios">
+        <h2>Precios Transparentes</h2>
+        <p class="pricing-subtitle">Inversión accesible para impulsar tu negocio</p>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-icon">🎨</div>
+                <h3>Logotipos</h3>
+                <div class="price">desde <span>$10</span></div>
+                <p>Diseño profesional de marca</p>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="pricing-icon">🎬</div>
+                <h3>Edición de Video</h3>
+                <div class="price">desde <span>$15</span></div>
+                <p>Contenido de alta calidad</p>
+            </div>
+            
+            <div class="pricing-card featured">
+                <div class="featured-badge">⭐ Popular</div>
+                <div class="pricing-icon">📱</div>
+                <h3>Videos Publicitarios</h3>
+                <div class="price">desde <span>$20</span></div>
+                <p>Para redes sociales y más</p>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="pricing-icon">🌐</div>
+                <h3>Páginas Web</h3>
+                <div class="price">desde <span>$50</span></div>
+                <p>Sitios responsivos y modernos</p>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="pricing-icon">🎭</div>
+                <h3>Modelado 3D</h3>
+                <div class="price">desde <span>$25</span></div>
+                <p>Visualizaciones realistas</p>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="pricing-icon">📲</div>
+                <h3>Apps Personalizadas</h3>
+                <div class="price">desde <span>$80</span></div>
+                <p>Soluciones a medida</p>
+            </div>
+        </div>
+        
+        <div class="pricing-cta">
+            <p>¿Tienes un proyecto específico?</p>
+            <a href="https://wa.me/593999162874?text=Hola%20Cristhian%2C%20necesito%20una%20cotización%20personalizada." 
+                class="cta-button cta-primary" 
+                target="_blank">
+                 <i class="fab fa-whatsapp"></i> Solicitar Cotización Personalizada
+            </a>
         </div>
     </section>
 
@@ -183,12 +267,21 @@
     </div>
     </div>
 
-    <!-- BOTÓN FLOTANTE -->
-    <div class="floating-btn" onclick="scrollToTop()">↑</div>
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/593999162874?text=Hola%20Cristhian%2C%20vi%20tus%20servicios%20y%20quiero%20una%20cotización." 
+        class="whatsapp-float" 
+        target="_blank"
+        aria-label="Contactar por WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-text">¿Necesitas un servicio? ¡Escríbeme!</span>
+    </a>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    <div class="back-to-top-btn" onclick="scrollToTop()">↑</div>
 
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    
+
     <!-- Enlace al archivo JavaScript -->
     <script src="script_js_separado.js"></script>
 </body>

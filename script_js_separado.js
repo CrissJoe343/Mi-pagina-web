@@ -813,9 +813,9 @@ function initFooterFunctionality() {
 
 // Mostrar/ocultar botón de volver arriba basado en scroll
 function initBackToTopButton() {
-    const backToTop = document.querySelector('.back-to-top');
+    const backToTop = document.querySelector('.back-to-top-btn');
     
-    if (!backToTop) return; // Salir si no existe el botón
+    if (!backToTop) return;
     
     window.addEventListener('scroll', function() {
         if (window.pageYOffset > 300) {
@@ -1197,6 +1197,7 @@ function setupModal() {
         }
     });
 }
+
 /*====================================
   PANTALLA DE CARGA
 ====================================*/
@@ -1208,4 +1209,29 @@ window.addEventListener('load', function() {
       loadingScreen.remove();
     }, 2000);
   }, 2800);
+});
+
+// ====================================
+// BANNER DE OFERTA ESPECIAL
+// ====================================
+function closeOffer() {
+    const banner = document.getElementById('specialOffer');
+    if (banner) {
+        banner.style.animation = 'slideDown 0.5s ease reverse';
+        setTimeout(() => {
+            banner.style.display = 'none';
+        }, 500);
+        // Guardar en localStorage para no mostrar de nuevo
+        localStorage.setItem('offerClosed', 'true');
+    }
+}
+
+// Verificar si el banner debe mostrarse al cargar
+document.addEventListener('DOMContentLoaded', function() {
+    const offerClosed = localStorage.getItem('offerClosed');
+    const banner = document.getElementById('specialOffer');
+    
+    if (offerClosed === 'true' && banner) {
+        banner.style.display = 'none';
+    }
 });

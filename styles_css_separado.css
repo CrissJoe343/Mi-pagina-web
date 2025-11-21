@@ -24,7 +24,7 @@ body {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000;
+    z-index: 998;
     padding: 0;
     transition: all 0.3s ease;
     width: auto;
@@ -177,15 +177,15 @@ body {
     }
     
     .nav-menu {
-        padding: 0.6rem 1rem;
+        padding: 0.6rem 0.8rem;
         gap: 0;
         flex-wrap: nowrap;
         display: flex !important;
     }
     
     .nav-link {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
     }
 }
 
@@ -197,14 +197,14 @@ body {
     }
     
     .nav-menu {
-        padding: 0.5rem 0.5rem;
+        padding: 0.5rem 0.4rem;
         border-radius: 30px;
         display: flex !important;
     }
     
     .nav-link {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.85rem;
+        padding: 0.3rem 0.5rem;
+        font-size: 0.8rem;
     }
     
     .nav-menu::before {
@@ -212,6 +212,144 @@ body {
         height: 250%;
         top: -75%;
         left: -75%;
+    }
+}
+
+/* ====================================
+   BANNER DE OFERTA ESPECIAL
+   ==================================== */
+.special-offer-banner {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+    padding: 1.5rem 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(255, 107, 107, 0.5);
+    max-width: 800px;
+    width: 90%;
+    animation: slideDown 0.5s ease, bannerPulse 2s ease-in-out infinite;
+}
+
+.offer-content {
+    text-align: center;
+    color: white;
+}
+
+.offer-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    backdrop-filter: blur(10px);
+    animation: badgePulse 1.5s ease-in-out infinite;
+}
+
+.offer-content h3 {
+    font-size: 1.8rem;
+    margin: 0.5rem 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.offer-content p {
+    font-size: 1rem;
+    margin: 0.5rem 0 1.2rem 0;
+    opacity: 0.95;
+}
+
+.offer-btn {
+    display: inline-block;
+    background: white;
+    color: #ff6b6b;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.offer-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+.close-offer {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-offer:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: rotate(90deg);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes bannerPulse {
+    0%, 100% {
+        box-shadow: 0 10px 40px rgba(255, 107, 107, 0.5);
+    }
+    50% {
+        box-shadow: 0 10px 50px rgba(255, 107, 107, 0.8),
+                    0 0 0 5px rgba(255, 107, 107, 0.3);
+    }
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@media (max-width: 768px) {
+    .special-offer-banner {
+        top: 70px;
+        padding: 1.2rem 2rem;
+        width: 95%;
+    }
+    
+    .offer-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .offer-content p {
+        font-size: 0.9rem;
+    }
+    
+    .offer-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.95rem;
     }
 }
 
@@ -264,14 +402,14 @@ body {
     font-size: 20px;
     line-height: 100px;
     animation: particles-float 25s infinite linear;
-    opacity: 0.7;
-    z-index: 3;
+    opacity: 0.45; /* Reducida de 0.7 a 0.15 */
+    z-index: 1; /* Cambiado de 3 a 1 para que esté detrás */
     pointer-events: none;
     white-space: nowrap;
     letter-spacing: 80px;
     font-family: 'Courier New', monospace;
-    color: hsl(199, 100%, 50%); /* Verde Matrix */
-    text-shadow: 0 0 10px hsl(234, 100%, 50%);
+    color: rgba(0, 213, 255, 0.4); /* Color más transparente */
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
 }
 
 /* CAPA ADICIONAL DE PARTÍCULAS */
@@ -314,7 +452,7 @@ body {
 
 .hero-content {
     max-width: 800px;
-    z-index: 2;
+    z-index: 5; /* Aumentado para que esté siempre al frente */
     position: relative;
 }
 
@@ -332,17 +470,69 @@ body {
     animation: slideUp 1s ease 0.3s forwards;
 }
 
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .cta-button {
-    display: inline-block;
-    padding: 15px 40px;
-    background: #ff6b6b;
-    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 18px 45px;
+    font-size: 1.1rem;
     text-decoration: none;
     border-radius: 50px;
     font-weight: bold;
     transition: all 0.3s ease;
     opacity: 0;
     animation: slideUp 1s ease 0.6s forwards;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cta-primary {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+}
+
+.cta-primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+}
+
+.cta-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    backdrop-filter: blur(10px);
+}
+
+.cta-secondary:hover {
+    background: white;
+    color: #0580f3;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 255, 255, 0.4);
+}
+
+.cta-button i {
+    font-size: 1.3rem;
+}
+
+@media (max-width: 768px) {
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-button {
+        padding: 15px 35px;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
 }
 
 .cta-button:hover {
@@ -379,6 +569,128 @@ body {
 /* ====================================
    GRID DE SERVICIOS
    ==================================== */
+
+/* ====================================
+   SECCIÓN DE PRECIOS
+   ==================================== */
+.pricing-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px;
+    padding: 5rem 2rem;
+    margin: 3rem auto;
+}
+
+.pricing-subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 1.2rem;
+    margin-top: -2rem;
+    margin-bottom: 3rem;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.pricing-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    border-color: #0580f3;
+}
+
+.pricing-card.featured {
+    border-color: #FFD700;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+}
+
+.featured-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.pricing-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.pricing-card h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.price {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.price span {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0580f3;
+    display: block;
+    margin: 0.5rem 0;
+}
+
+.pricing-card p {
+    color: #888;
+    line-height: 1.6;
+}
+
+.pricing-cta {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #0580f3, #0099ff);
+    border-radius: 20px;
+    color: white;
+}
+
+.pricing-cta p {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.pricing-cta .cta-button {
+    display: inline-flex;
+    animation: none;
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pricing-section {
+        padding: 3rem 1rem;
+    }
+}
+
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1600,31 +1912,123 @@ body {
 }
 
 /* ====================================
-   BOTÓN FLOTANTE
+   BOTÓN FLOTANTE DE WHATSAPP
    ==================================== */
-.floating-btn {
+.whatsapp-float {
     position: fixed;
     bottom: 30px;
     right: 30px;
     width: 60px;
     height: 60px;
-    background: #ff6b6b;
+    background: linear-gradient(135deg, #25D366, #128C7E);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+    box-shadow: 0 5px 25px rgba(37, 211, 102, 0.5);
+    color: white;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    text-decoration: none;
+    animation: whatsappPulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.15);
+    box-shadow: 0 8px 35px rgba(37, 211, 102, 0.7);
+    width: auto;
+    padding: 0 20px;
+    border-radius: 30px;
+}
+
+.whatsapp-float i {
+    font-size: 2rem;
+    min-width: 30px;
+}
+
+.whatsapp-text {
+    display: none;
+    margin-left: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.whatsapp-float:hover .whatsapp-text {
+    display: inline;
+}
+
+@keyframes whatsappPulse {
+    0%, 100% {
+        box-shadow: 0 5px 25px rgba(37, 211, 102, 0.5);
+    }
+    50% {
+        box-shadow: 0 5px 35px rgba(37, 211, 102, 0.8), 
+                    0 0 0 10px rgba(37, 211, 102, 0.3);
+    }
+}
+
+/* BOTÓN VOLVER ARRIBA */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: rgba(99, 102, 241, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
     color: white;
     font-size: 1.5rem;
     transition: all 0.3s ease;
-    z-index: 4;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
 }
 
-.floating-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+.back-to-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
 }
+
+.back-to-top-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+        font-size: 1.8rem;
+    }
+    
+    .whatsapp-float:hover {
+        width: 55px;
+        padding: 0;
+    }
+    
+    .whatsapp-text {
+        display: none !important;
+    }
+    
+    .back-to-top-btn {
+        bottom: 85px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+}   
 
 /* ====================================
    DISEÑO RESPONSIVO
