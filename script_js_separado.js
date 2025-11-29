@@ -14,6 +14,9 @@ const PAUSA_MODAL_FINAL = 1000;
 // ====================================
 // EFECTOS DE SCROLL
 // ====================================
+let lastScrollTop = 0;
+const scrollThreshold = 5; // Sensibilidad del scroll
+
 window.addEventListener('scroll', () => {
     scrollPosition = window.pageYOffset;
     
@@ -23,6 +26,28 @@ window.addEventListener('scroll', () => {
     } else {
         navbar.classList.remove('scrolled');
     }
+    
+    // Ocultar/mostrar navbar según dirección del scroll
+    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Evitar scroll horizontal y valores negativos
+    if (currentScrollTop < 0) return;
+    
+    // Determinar dirección del scroll
+    if (Math.abs(lastScrollTop - currentScrollTop) <= scrollThreshold) {
+        return; // No hacer nada si el movimiento es muy pequeño
+    }
+    
+    if (currentScrollTop > lastScrollTop && currentScrollTop > 150) {
+        // Scroll hacia ABAJO - Ocultar navbar
+        navbar.classList.add('hidden');
+    } else {
+        // Scroll hacia ARRIBA - Mostrar navbar
+        navbar.classList.remove('hidden');
+    }
+    
+    // Actualizar última posición de scroll
+    lastScrollTop = currentScrollTop;
 });
 
 // NAVEGACIÓN SUAVE
@@ -923,6 +948,18 @@ function initParallaxEffect() {
     });
 }
 
+// Efecto blur en hero al hacer scroll
+window.addEventListener('scroll', function() {
+    const hero = document.querySelector('.hero');
+    const scrollPosition = window.scrollY;
+    
+    if (scrollPosition > 100) {
+        hero.classList.add('blurred');
+    } else {
+        hero.classList.remove('blurred');
+    }
+});
+
 // ====================================
 // UTILIDADES
 // ====================================
@@ -1227,162 +1264,24 @@ window.addEventListener('load', function() {
 // ====================================
 // BANNER DE OFERTA ESPECIAL
 // ====================================
-
-/**
- * Cerrar el banner de oferta
- */
 function closeOffer() {
-    console.log('🔴 Cerrando banner de oferta...');
-    
-    const banner = document.getElementById('specialOffer');
-    
-    if (!banner) {
-        console.warn('⚠️ Banner no encontrado');
-        return;
-    }
-    
-    // Agregar animación de salida
-    banner.style.animation = 'slideDown 0.5s ease reverse';
-    
-    // Ocultar después de la animación
-    setTimeout(() => {
-        banner.style.display = 'none';
-        console.log('✅ Banner ocultado');
-    }, 500);
-    
-    // Guardar en localStorage para no mostrar de nuevo
-    try {
-        localStorage.setItem('offerClosed', 'true');
-        console.log('💾 Preferencia guardada en localStorage');
-    } catch (e) {
-        console.warn('⚠️ No se pudo guardar en localStorage:', e);
-    }
-}
-
-/**
- * Verificar si el banner debe mostrarse al cargar
- */
-function checkOfferBanner() {
-    const banner = document.getElementById('specialOffer');
-    
-    if (!banner) {
-        console.warn('⚠️ Banner no encontrado en el DOM');
-        return;
-    }
-    
-    try {
-        const offerClosed = localStorage.getItem('offerClosed');
-        
-        if (offerClosed === 'true') {
-            banner.style.display = 'none';
-            console.log('🚫 Banner ocultado (preferencia guardada)');
-        } else {
-            console.log('✅ Banner visible');
-        }
-    } catch (e) {
-        console.warn('⚠️ Error al leer localStorage:', e);
-    }
-}
-
-// Inicializar al cargar la página
-document.addEventListener('DOMContentLoaded', function() {
-    checkOfferBanner();
-    
-    // Agregar event listener adicional al botón de cerrar
-    const closeButton = document.querySelector('.close-offer');
-    if (closeButton) {
-        closeButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('🖱️ Click en botón cerrar detectado');
-            closeOffer();
-        });
-        console.log('✅ Event listener del botón cerrar configurado');
-    } else {
-        console.warn('⚠️ Botón .close-offer no encontrado');
-    }
-});
-
-// Función adicional para resetear (útil para testing)
-function resetOfferBanner() {
-    localStorage.removeItem('offerClosed');
     const banner = document.getElementById('specialOffer');
     if (banner) {
-        banner.style.display = 'block';
-        banner.style.animation = 'slideDown 0.5s ease';
+        banner.style.animation = 'slideDown 0.5s ease reverse';
+        setTimeout(() => {
+            banner.style.display = 'none';
+        }, 500);
+        // Guardar en localStorage para no mostrar de nuevo
+        localStorage.setItem('offerClosed', 'true');
     }
-    console.log('🔄 Banner reseteado');
 }
 
-// ====================================
-// SISTEMA INTELIGENTE DE WHATSAPP
-// ====================================
-
-/**
- * Detecta si es dispositivo móvil
- */
-function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
-/**
- * Abre WhatsApp de forma inteligente según el dispositivo
- */
-function openWhatsApp(phoneNumber, message) {
-    // Limpiar y preparar el mensaje
-    const encodedMessage = encodeURIComponent(message);
-    
-    // Detectar tipo de dispositivo
-    const isMobile = isMobileDevice();
-    
-    let url;
-    
-    if (isMobile) {
-        // En móvil: usar api.whatsapp.com (más confiable)
-        url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
-    } else {
-        // En PC: usar web.whatsapp.com (abre WhatsApp Web)
-        url = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
-    }
-    
-    console.log(`📱 Dispositivo: ${isMobile ? 'Móvil' : 'PC'}`);
-    console.log(`🔗 Abriendo: ${url}`);
-    
-    // Abrir en nueva pestaña
-    window.open(url, '_blank');
-}
-
-/**
- * Configurar todos los enlaces de WhatsApp
- */
-function setupWhatsAppLinks() {
-    const whatsappLinks = document.querySelectorAll('[data-whatsapp="true"]');
-    
-    console.log(`✅ Configurando ${whatsappLinks.length} enlaces de WhatsApp`);
-    
-    whatsappLinks.forEach((link, index) => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevenir comportamiento por defecto
-            
-            // Obtener número y mensaje
-            const phoneNumber = '593999162874';
-            const message = this.getAttribute('data-message') || 'Hola Cristhian, vi tus servicios';
-            
-            console.log(`🔔 Click en enlace WhatsApp #${index + 1}`);
-            
-            // Abrir WhatsApp de forma inteligente
-            openWhatsApp(phoneNumber, message);
-        });
-    });
-}
-
-// Inicializar cuando el DOM esté listo
+// Verificar si el banner debe mostrarse al cargar
 document.addEventListener('DOMContentLoaded', function() {
-    setupWhatsAppLinks();
+    const offerClosed = localStorage.getItem('offerClosed');
+    const banner = document.getElementById('specialOffer');
     
-    // Log de información del dispositivo
-    console.log('📱 Información del dispositivo:');
-    console.log('   - Móvil:', isMobileDevice());
-    console.log('   - User Agent:', navigator.userAgent);
-    console.log('   - Ancho de pantalla:', window.innerWidth);
+    if (offerClosed === 'true' && banner) {
+        banner.style.display = 'none';
+    }
 });

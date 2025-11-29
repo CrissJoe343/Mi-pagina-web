@@ -31,6 +31,12 @@ body {
     max-width: 90%;
 }
 
+/* Estado oculto del navbar */
+.navbar.hidden {
+    transform: translateX(-50%) translateY(-120%);
+    opacity: 0;
+}
+
 .nav-container {
     display: flex;
     justify-content: center;
@@ -358,17 +364,11 @@ body {
    ==================================== */
 .hero {
     height: 100vh;
-    /* IMAGEN DE FONDO FIJA */
     background-image: url('74166.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    
-    /* OVERLAY OPCIONAL (puedes comentar esta línea si no lo quieres) */
-    /*background-color: rgba(102, 126, 234, 0.4);
-    background-blend-mode: overlay;*/
-    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -376,6 +376,12 @@ body {
     color: white;
     position: relative;
     overflow: hidden;
+    transition: filter 0.5s ease; /* AGREGAR ESTA LÍNEA */
+}
+
+/* AGREGAR ESTA NUEVA CLASE DESPUÉS DE .hero */
+.hero.blurred {
+    filter: blur(8px);
 }
 
 .hero::before {
@@ -549,28 +555,6 @@ body {
 
 
 /* ====================================
-   SECCIONES GENERALES
-   ==================================== */
-.section {
-    padding: 5rem 0;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
-
-.section h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    color: #333;
-}
-
-/* ====================================
-   GRID DE SERVICIOS
-   ==================================== */
-
-/* ====================================
    SECCIÓN DE PRECIOS
    ==================================== */
 .pricing-section {
@@ -691,49 +675,184 @@ body {
     }
 }
 
+/* ====================================
+   GRID DE SERVICIOS
+   ==================================== */
+.section {
+    padding: 5rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 10;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    padding-bottom: 1.5rem;
+    
+    /* Degradado suave con profundidad */
+    background: linear-gradient(180deg, #0580f3 0%, #003d82 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.1),
+        0 0 20px rgba(5, 128, 243, 0.2);
+}
+
+.section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #0580f3, #00d4ff, #0580f3);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(5, 128, 243, 0.3);
+}
+
+.section h2:hover::after {
+    width: 80px;
+    transition: width 0.4s ease;
+}
+
+.section h2::before {
+    content: '◆';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    background: linear-gradient(135deg, #0580f3, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0.6;
+}
+
+/* Título de Servicios */
+#servicios h2::before {
+    content: '⬡';
+    color: #ffffff;
+}
+
+/* Título de Galería */
+#galeria h2::before {
+    content: '◇';
+    color: #0bb414;
+}
+
+/* Título de Precios */
+#precios h2::before {
+    content: '◈';
+    color: #000000;
+}
+
+/* Título de Contacto */
+#contacto h2::before {
+    content: '◆';
+    color: #616161;
+}
+
+/* Animación sutil al aparecer */
+.section h2 {
+    animation: fadeInDown 0.8s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
     margin-top: 3rem;
     justify-items: center;
+    padding: 0 1rem;
 }
 
 .service-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fc 100%);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(5, 128, 243, 0.1);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(5, 128, 243, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.service-card:hover::before {
+    left: 100%;
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-15px);
+    box-shadow: 0 20px 60px rgba(5, 128, 243, 0.2);
+    border-color: rgba(5, 128, 243, 0.3);
 }
 
 .service-icon {
-    width: 60px;
-    height: 60px;
-    background: rgb(0, 0, 0);
-    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #0580f3 0%, #0099ff 100%);
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin: 0 auto 1.5rem;
     color: white;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    box-shadow: 0 8px 25px rgba(5, 128, 243, 0.3);
+    transition: all 0.4s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 35px rgba(5, 128, 243, 0.5);
 }
 
 .service-card h3 {
     margin-bottom: 1rem;
-    color: #333;
+    color: #1a1a2e;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
 }
 
 .service-card p {
     color: #666;
-    line-height: 1.6;
+    line-height: 1.8;
+    text-align: center;
+    font-size: 1rem;
 }
 
 /* ====================================
@@ -743,45 +862,41 @@ body {
 .project-title {
     text-align: center;
     padding: 0.1rem 1rem;
-    background-color: #1a1a1a;
+    background-color: #ffffff;
     font-weight: bold;
     font-size: 1rem;
-    color: #ffffff;
-    border-bottom: 1px solid #eee;
-    text-shadow: #006fdd 0px 0px 10px;
+    color: #0077ff;
 }
 
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
     justify-items: center;
+    padding: 0 1rem;
 }
-
-
 
 .gallery-item {
     width: 100%;
-    max-width: 350px;
-    height: 250px;
-    border-radius: 15px;
+    max-width: 380px;
+    height: 280px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    background: #f8f9fa;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background: #000;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
 
 .gallery-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
 }
 
-/* Contenedor de la imagen */
 .project-image-container {
     flex: 1;
     position: relative;
@@ -793,36 +908,38 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: all 0.3s ease;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .gallery-item:hover .project-image {
-    transform: scale(1.05);
+    transform: scale(1.15);
+    filter: brightness(0.7);
 }
 
-/* Indicador de múltiples imágenes */
 .image-indicator {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.7);
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 0.3rem 0.6rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
     font-weight: bold;
+    backdrop-filter: blur(10px);
+    z-index: 2;
 }
 
-/* Botones de navegación de imágenes */
 .image-nav {
     position: absolute;
-    bottom: 10px;
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 0.3rem;
+    gap: 0.5rem;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
+    z-index: 2;
 }
 
 .gallery-item:hover .image-nav {
@@ -830,34 +947,35 @@ body {
 }
 
 .nav-dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.5);
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
 .nav-dot.active {
     background: white;
+    transform: scale(1.3);
 }
 
-/* Overlay para información adicional */
 .project-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(116, 185, 255, 0.9), rgba(9, 132, 227, 0.9));
+    background: linear-gradient(135deg, rgba(5, 128, 243, 0.95), rgba(0, 153, 255, 0.95));
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     color: white;
     text-align: center;
-    padding: 1rem;
+    padding: 2rem;
 }
 
 .gallery-item:hover .project-overlay {
@@ -865,15 +983,17 @@ body {
 }
 
 .overlay-content h3 {
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .overlay-content p {
-    font-size: 0.9rem;
-    opacity: 0.9;
+    font-size: 1rem;
+    opacity: 0.95;
+    line-height: 1.6;
 }
-
 
 
 /* ====================================
@@ -1184,6 +1304,22 @@ body {
     
     .modal-nav.next {
         right: 15px;
+    }
+    
+    .section h2 {
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+        padding-bottom: 1rem;
+    }
+
+    .section h2::before {
+        top: -25px;
+        font-size: 0.7rem;
+    }
+
+    .section h2::after {
+        width: 50px;
+        height: 2.5px;
     }
 }
 
@@ -1845,6 +1981,22 @@ body {
     .footer-bottom-links {
         gap: 1rem;
         font-size: 0.8rem;
+    }
+
+    .section h2 {
+        font-size: 1.7rem;
+        margin-bottom: 2rem;
+        letter-spacing: -0.3px;
+    }
+
+    .section h2::before {
+        top: -20px;
+        font-size: 0.6rem;
+    }
+
+    .section h2::after {
+        width: 40px;
+        height: 2px;
     }
 }
 
